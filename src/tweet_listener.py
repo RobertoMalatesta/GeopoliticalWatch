@@ -16,14 +16,18 @@ api = tweepy.API(auth)
 
 def process_or_store(tweet):
 	print(json.dumps(tweet))
+
+alltweets = []
 	
 class MyListener(StreamListener):
 	
 	def on_data(self, data):
 		try:
-			with open('python.json', 'a') as file:
-				file.write(data)
-				return True
+			with open('python.json', 'a') as f:
+				f.write(data)
+			decoded = json.loads(data)
+			alltweets.append(decoded)
+			return True
 		except BaseException as e: 
 			print("\" Error " + on_data + ": \"" % str(e))
 		return True
