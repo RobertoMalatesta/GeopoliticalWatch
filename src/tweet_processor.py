@@ -1,8 +1,6 @@
 import tweepy
 from tweepy import OAuthHandler
 import json
-from tweepy import Stream
-from tweepy.streaming import StreamListener
 from nltk.tokenize import word_tokenize
 import re
 
