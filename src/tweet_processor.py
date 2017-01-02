@@ -1,8 +1,7 @@
-import tweepy
-from tweepy import OAuthHandler
-import json
 from nltk.tokenize import word_tokenize
 import re
+import json
+import tweepy
 
 emoticons_str = r"""
     (?:
@@ -34,16 +33,3 @@ def preprocess(s, lowercase=False):
     if lowercase:
         tokens = [token if emoticon_re.search(token) else token.lower() for token in tokens]
     return tokens
-
-tweet_list = []
-
-f = open('python.json', 'r')
-line = f.readline()
-for line in f:
-	tweet = json.loads(line)
-	tweet_id = tweet['user']['id_str']
-	print(tweet_id)
-	if (tweet_id == '25073877') or (tweet['retweeted'] == 'true'):
-		tweet_text = tweet['text']
-		tweet_list.extend(preprocess(tweet_text))
-print(tweet_list)

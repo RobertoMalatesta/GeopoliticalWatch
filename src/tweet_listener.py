@@ -21,20 +21,16 @@ class MyListener(StreamListener):
 	
 	def on_data(self, data):
 		try:
-			with open('python.json', 'a') as f:
-				f.write(data)
+			with open('python.json', 'a') as file:
+				file.write(data)
 				return True
-		except BaseException as e:
+		except BaseException as e: 
 			print("\" Error " + on_data + ": \"" % str(e))
 		return True
 	
 	def on_error(self, status):
 		print(status)
 		return True
-
-twitter_stream = Stream(auth, MyListener())
-twitter_stream.filter(follow=['25073877'])
-
 
 """for status in tweepy.Cursor(api.home_timeline).items(10):
 	# Process a single status
