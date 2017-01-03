@@ -1,5 +1,5 @@
 import tweet_listener
-import tweet_processor
+import tweet_preprocessor
 import tweepy
 from tweet_listener import MyListener
 from tweepy import OAuthHandler
@@ -9,13 +9,14 @@ import time
 
 if __name__ == "__main__":
 	twitter_stream = Stream(tweet_listener.auth, MyListener())
-	twitter_stream.filter(follow=['25073877'], async=True)
+	twitter_stream.filter(track=["the", "i", "to", "a", "and", "is", "in", "it", "you",
+	 							"of", "for", "on", "my", "that", "at", "with"], async=True)
 	
 	tweet_list = []
 	
 	print("Stream has started")
 	
-	time.sleep(3)
+	time.sleep(1)
 	
 	var = len(tweet_listener.alltweets)
 	print(var)
@@ -23,15 +24,15 @@ if __name__ == "__main__":
 
 	while x < var:
 		thetweet = tweet_listener.alltweets[x]
-		tweet_id = thetweet['user']['id_str']
-		if (tweet_id == '25073877') or (thetweet['retweeted'] == 'true'):
+		try:
 			tweet_text = thetweet['text']
-			tweet_list.append(preprocess(tweet_text))
+			tweet_list.append(tweet_preprocessor.preprocess(tweet_text))
+		except KeyError as e:
+			print("Error fetching text")
 		del tweet_listener.alltweets[x]
-		print("The loop is still going")
 		var = len(tweet_listener.alltweets)
 		print(var)
-		time.sleep(1)
+		time.sleep(0.02)
 
 	print("The loop has ended")
 	
