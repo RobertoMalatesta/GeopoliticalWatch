@@ -8,15 +8,20 @@ from tweepy import Stream
 import time
 
 if __name__ == "__main__":
+	open('python.json', 'w').close()
+	
 	twitter_stream = Stream(tweet_listener.auth, MyListener())
-	twitter_stream.filter(track=["the", "i", "to", "a", "and", "is", "in", "it", "you",
-	 							"of", "for", "on", "my", "that", "at", "with"], async=True)
+	twitter_stream.filter(track=["economy"], async=True)
 	
 	tweet_list = []
 	
+	#geo_data = {
+	#	"type": "FeatureCollection", "features": []
+	#	}
+	
 	print("Stream has started")
 	
-	time.sleep(1)
+	time.sleep(5)
 	
 	var = len(tweet_listener.alltweets)
 	print(var)
@@ -32,7 +37,7 @@ if __name__ == "__main__":
 		del tweet_listener.alltweets[x]
 		var = len(tweet_listener.alltweets)
 		print(var)
-		time.sleep(0.02)
-
+		time.sleep(1)
+		
 	print("The loop has ended")
 	

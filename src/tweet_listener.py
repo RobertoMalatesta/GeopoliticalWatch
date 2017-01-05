@@ -33,8 +33,8 @@ class MyListener(StreamListener):
 		return True
 	
 	def on_error(self, status):
-		print(status)
-		return True
+		print("Error: " + str(status))
+		return False
 
 """for status in tweepy.Cursor(api.home_timeline).items(10):
 	# Process a single status
