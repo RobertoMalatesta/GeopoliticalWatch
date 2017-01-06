@@ -36,12 +36,12 @@ if __name__ == "__main__":
 			preprocessed = tweet_preprocessor.preprocess(tweet_text)
 			tweet_list.append(preprocessed)
 			tweet_processor.count(preprocessed)
+			tweet_processor.hash_count(preprocessed)
 		except KeyError as e:
 			print("Error fetching text")
 		del tweet_listener.alltweets[x]
 		var = len(tweet_listener.alltweets)
-		print(preprocessed)
-		#print(tweet_processor.count_all.most_common(5))
+		print(tweet_processor.count_all.most_common(5))
 		speed = math.exp((-1/6)*(0.1+var))
 		time.sleep(speed)
 		

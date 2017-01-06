@@ -23,8 +23,8 @@ class MyListener(StreamListener):
 	
 	def on_data(self, data):
 		try:
-			with open('python.json', 'a') as f:
-				f.write(data)
+			#with open('python.json', 'a') as f:
+			#	f.write(data)
 			decoded = json.loads(data)
 			alltweets.append(decoded)
 			return True
