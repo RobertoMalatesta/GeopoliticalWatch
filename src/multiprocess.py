@@ -1,17 +1,19 @@
 import tweet_listener
 import tweet_preprocessor
+import tweet_processor
 import tweepy
 from tweet_listener import MyListener
 from tweepy import OAuthHandler
 import json
 from tweepy import Stream
 import time
+import math
 
 if __name__ == "__main__":
 	open('python.json', 'w').close()
 	
 	twitter_stream = Stream(tweet_listener.auth, MyListener())
-	twitter_stream.filter(track=["economy"], async=True)
+	twitter_stream.filter(track=["trump"], async=True)
 	
 	tweet_list = []
 	
@@ -21,7 +23,7 @@ if __name__ == "__main__":
 	
 	print("Stream has started")
 	
-	time.sleep(5)
+	time.sleep(2)
 	
 	var = len(tweet_listener.alltweets)
 	print(var)
@@ -30,14 +32,18 @@ if __name__ == "__main__":
 	while x < var:
 		thetweet = tweet_listener.alltweets[x]
 		try:
-			tweet_text = thetweet['text']
-			tweet_list.append(tweet_preprocessor.preprocess(tweet_text))
+			tweet_text = thetweet['text'].encode('ascii','ignore').lower()
+			preprocessed = tweet_preprocessor.preprocess(tweet_text)
+			tweet_list.append(preprocessed)
+			tweet_processor.count(preprocessed)
 		except KeyError as e:
 			print("Error fetching text")
 		del tweet_listener.alltweets[x]
 		var = len(tweet_listener.alltweets)
-		print(var)
-		time.sleep(1)
+		print(preprocessed)
+		#print(tweet_processor.count_all.most_common(5))
+		speed = math.exp((-1/6)*(0.1+var))
+		time.sleep(speed)
 		
 	print("The loop has ended")
 	
