@@ -1,6 +1,7 @@
 import tweet_listener
 import tweet_preprocessor
 import tweet_processor
+import sentiment_analyzer
 import tweepy
 from tweet_listener import MyListener
 from tweepy import OAuthHandler
@@ -37,11 +38,12 @@ if __name__ == "__main__":
 			tweet_list.append(preprocessed)
 			tweet_processor.count(preprocessed)
 			tweet_processor.hash_count(preprocessed)
+			sentiment_analyzer.analyze(tweet_text)
 		except KeyError as e:
 			print("Error fetching text")
 		del tweet_listener.alltweets[x]
 		var = len(tweet_listener.alltweets)
-		print(tweet_processor.count_all.most_common(5))
+		#print(tweet_processor.count_all.most_common(5))
 		speed = math.exp((-1/6)*(0.1+var))
 		time.sleep(speed)
 		
