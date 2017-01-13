@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Javascript Tester</title>
-<link rel="stylesheet" type="text/css" href="main.css"/>
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-<script>
-$(document).ready(function() {
-            $("#driver").click(function(event){
-               $.getJSON('data.json', function(jd) {
-                  $('#stage').html('<p> Compound: ' + jd.compound + '</p>');
-                  $('#stage').append('<p> Neg : ' + jd.neg+ '</p>');
-                  $('#stage').append('<p> Pos: ' + jd.pos+ '</p>');
-                  $('#stage').append('<p> Neu: ' + jd.neu+ '</p>');
-                  $('#stage').append('<p> Negatives: ' + jd.negative+ '</p>');
-                  $('#stage').append('<p> Positives: ' + jd.positive+ '</p>');
-               });
+    <head>
+        <title>Javascript Tester</title>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    </head>
+    <body>
+        <div id = "stage"></div>
+        <script>
+            $.ajaxSetup({ cache: false });
+            function refresh()
+            {
+                $('#stage').fadeOut('slow');
+                $.getJSON('data.json', function(j)
+                          {
+                          $('#stage').html('Compound: ' + j.compound + "<br />");
+                          $('#stage').append('Neg : ' + j.neg + "<br />");
+                          $('#stage').append('Pos: ' + j.pos + "<br />");
+                          $('#stage').append('Neu: ' + j.neu + "<br />");
+                          $('#stage').append('Negatives: ' + j.negative + "<br />");
+                          $('#stage').append('Positives: ' + j.positive + "<br />");
+                          });
+                          $('#stage').fadeIn('slow');
+                setTimeout("refresh()", 200)
+            }
+            $(document).ready(function() {
+                    refresh();
             });
-				
-         });
-</script>
-</head>
-<body>
-<p>Click on the button to load result.html file:</p>
-		
-<div id = "stage" style = "background-color:#cc0;">
-	STAGE
-</div>	
-<input type = "button" id = "driver" value = "Load Data" />
-</body>
+        </script>
+    </body>
 </html>
